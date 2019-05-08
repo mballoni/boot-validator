@@ -1,0 +1,8 @@
+pluginManagement {
+	repositories {
+		gradlePluginPortal()
+	}
+}
+rootProject.name = 'validator-boot'
+include 'validator-boot-core'
+include 'validator-boot-example'
