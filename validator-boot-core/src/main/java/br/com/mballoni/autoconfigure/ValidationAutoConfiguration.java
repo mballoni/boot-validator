@@ -46,6 +46,11 @@ public class ValidationAutoConfiguration {
 
                 Map<String, Object> errorAttributes = super.getErrorAttributes(request, includeStackTrace);
                 errorAttributes.remove("exception");
+                errorAttributes.remove("message");
+                errorAttributes.remove("path");
+                errorAttributes.remove("status");
+                errorAttributes.remove("error");
+                errorAttributes.remove("timestamp");
 
                 Throwable exception = super.getError(request);
                 if (exception instanceof ValidationException) {
