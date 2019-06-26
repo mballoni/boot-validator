@@ -11,13 +11,21 @@ import javax.validation.constraints.*;
 @ToString
 public class ExampleRequest {
 
-    @NotNull
-    @Min(value = 10)
-    @Max(value = 20)
+    @NotNull(groups = {UpdateExample.class})
+    @Min(value = 10, groups = {UpdateExample.class})
+    @Max(value = 20, groups = {UpdateExample.class})
+    @Null(groups = {CreateExample.class})
     private Long id;
 
-    @NotNull
-    @NotEmpty
-    @NotBlank
+    @NotNull(groups = {UpdateExample.class, CreateExample.class})
+    @NotEmpty(groups = {UpdateExample.class, CreateExample.class})
+    @NotBlank(groups = {UpdateExample.class, CreateExample.class})
     private String name;
+
+
+    public interface CreateExample {
+    }
+
+    public interface UpdateExample {
+    }
 }
