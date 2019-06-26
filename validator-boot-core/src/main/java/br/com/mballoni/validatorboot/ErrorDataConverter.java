@@ -4,12 +4,9 @@ import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
 
-public class ErrorDataConverter {
+class ErrorDataConverter {
 
-    private ErrorDataConverter() {
-    }
-
-    public static <T> FieldError from(ConstraintViolation<T> violation) {
+    static <T> FieldError from(ConstraintViolation<T> violation) {
         final String code = violation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
         final Object rejected = violation.getInvalidValue();
         final String field = violation.getPropertyPath().toString();

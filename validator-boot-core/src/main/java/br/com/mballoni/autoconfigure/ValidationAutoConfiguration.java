@@ -1,19 +1,18 @@
 package br.com.mballoni.autoconfigure;
 
+import br.com.mballoni.validatorboot.BeanValidation;
 import br.com.mballoni.validatorboot.ValidationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.validation.FieldError;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
 
-@ComponentScan("br.com.mballoni.validatorboot")
 public class ValidationAutoConfiguration {
 
     @Bean
@@ -60,5 +59,10 @@ public class ValidationAutoConfiguration {
             }
 
         };
+    }
+
+    @Bean
+    public BeanValidation beanValidation() {
+        return new BeanValidation();
     }
 }
