@@ -1,10 +1,12 @@
 package br.com.mballoni;
 
+import br.com.mballoni.custom.NoPeriodCollision;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +23,9 @@ public class ExampleRequest {
     @NotEmpty(groups = {UpdateExample.class, CreateExample.class})
     @NotBlank(groups = {UpdateExample.class, CreateExample.class})
     private String name;
+
+    @NoPeriodCollision(groups = {UpdateExample.class, CreateExample.class})
+    private List<Assignment> assignments;
 
 
     public interface CreateExample {
