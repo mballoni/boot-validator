@@ -11,11 +11,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = {NoPeriodCollisionValidator.class})
+@Constraint(validatedBy = {NoPeriodsOverlapValidator.class})
 @Documented
-public @interface NoPeriodCollision {
+public @interface NoPeriodsOverlap {
 
-    String message() default "{br.com.mballoni.custom.NoPeriodCollision.message}";
+    String message() default "{br.com.mballoni.custom.NoPeriodsOverlap.message}";
 
     Class<?>[] groups() default {};
 

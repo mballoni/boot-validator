@@ -1,6 +1,6 @@
 package br.com.mballoni;
 
-import br.com.mballoni.custom.NoPeriodCollision;
+import br.com.mballoni.custom.NoPeriodsOverlap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,7 +24,7 @@ public class ExampleRequest {
     @NotBlank(groups = {UpdateExample.class, CreateExample.class})
     private String name;
 
-    @NoPeriodCollision(groups = {UpdateExample.class, CreateExample.class})
+    @NoPeriodsOverlap(groups = {UpdateExample.class, CreateExample.class})
     private List<Assignment> assignments;
 
 

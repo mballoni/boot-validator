@@ -4,11 +4,11 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class NoPeriodCollisionValidator implements ConstraintValidator<NoPeriodCollision, List<? extends PeriodHolder>> {
+public class NoPeriodsOverlapValidator implements ConstraintValidator<NoPeriodsOverlap, List<? extends PeriodHolder>> {
 
 
     @Override
-    public void initialize(NoPeriodCollision constraintAnnotation) {
+    public void initialize(NoPeriodsOverlap constraintAnnotation) {
     }
 
     @Override
@@ -16,11 +16,11 @@ public class NoPeriodCollisionValidator implements ConstraintValidator<NoPeriodC
         context.disableDefaultConstraintViolation();
 
         context
-                .buildConstraintViolationWithTemplate("{br.com.mballoni.custom.NoPeriodCollision.message}")
+                .buildConstraintViolationWithTemplate("{br.com.mballoni.custom.NoPeriodsOverlap.message}")
                 .addPropertyNode("period").inIterable().atIndex(0)
                 .addConstraintViolation()
 
-                .buildConstraintViolationWithTemplate("{br.com.mballoni.custom.NoPeriodCollision.message}")
+                .buildConstraintViolationWithTemplate("{br.com.mballoni.custom.NoPeriodsOverlap.message}")
                 .addPropertyNode("period").inIterable().atIndex(1)
                 .addConstraintViolation();
 
