@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.validation.FieldError;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.Validator;
 import java.util.Map;
 
 public class ValidationAutoConfiguration {
@@ -67,7 +68,7 @@ public class ValidationAutoConfiguration {
     }
 
     @Bean
-    public BeanValidation beanValidation() {
-        return new BeanValidation();
+    public BeanValidation beanValidation(Validator validator) {
+        return new BeanValidation(validator);
     }
 }

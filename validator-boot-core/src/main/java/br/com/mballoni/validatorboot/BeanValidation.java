@@ -3,7 +3,6 @@ package br.com.mballoni.validatorboot;
 import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +10,11 @@ import static java.util.stream.Collectors.toList;
 
 public class BeanValidation implements Validator {
 
-    private final javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    private final javax.validation.Validator validator;
+
+    public BeanValidation(javax.validation.Validator validator) {
+        this.validator = validator;
+    }
 
     @Override
     public <T> void validate(final T entity) {
