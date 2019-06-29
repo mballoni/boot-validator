@@ -1,6 +1,7 @@
 package br.com.mballoni;
 
 import br.com.mballoni.custom.NoPeriodsOverlap;
+import br.com.mballoni.validation.ExampleAssignmentNoOverlap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@ExampleAssignmentNoOverlap(groups = {ExampleRequest.UpdateExample.class, ExampleRequest.CreateExample.class})
 public class ExampleRequest {
 
     @NotNull(groups = {UpdateExample.class})
@@ -19,7 +21,7 @@ public class ExampleRequest {
     @Null(groups = {CreateExample.class})
     private Long id;
 
-    @NotNull(groups = {UpdateExample.class, CreateExample.class})
+    @NotNull(groups = {CreateExample.class})
     @NotEmpty(groups = {UpdateExample.class, CreateExample.class})
     @NotBlank(groups = {UpdateExample.class, CreateExample.class})
     private String name;

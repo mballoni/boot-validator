@@ -6,7 +6,6 @@ import java.util.List;
 
 public class NoPeriodsOverlapValidator implements ConstraintValidator<NoPeriodsOverlap, List<? extends PeriodHolder>> {
 
-
     @Override
     public void initialize(NoPeriodsOverlap constraintAnnotation) {
     }
