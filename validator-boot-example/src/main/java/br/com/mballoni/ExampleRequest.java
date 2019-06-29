@@ -2,6 +2,7 @@ package br.com.mballoni;
 
 import br.com.mballoni.custom.NoPeriodsOverlap;
 import br.com.mballoni.validation.ExampleAssignmentNoOverlap;
+import br.com.mballoni.validation.NoDuplicatedEmail;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,6 +26,9 @@ public class ExampleRequest {
     @NotEmpty(groups = {UpdateExample.class, CreateExample.class})
     @NotBlank(groups = {UpdateExample.class, CreateExample.class})
     private String name;
+
+    @NoDuplicatedEmail(groups = {CreateExample.class})
+    private String email;
 
     @NoPeriodsOverlap(groups = {UpdateExample.class, CreateExample.class})
     private List<Assignment> assignments;
