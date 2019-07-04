@@ -10,6 +10,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
     implementation group: 'com.h2database', name: 'h2'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 
     implementation project(':validator-boot-core')
@@ -20,6 +21,8 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-core'
+
 }
 
 jar.enabled = false
