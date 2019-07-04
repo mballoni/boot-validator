@@ -4,6 +4,7 @@ import br.com.mballoni.example.validation.NoDuplicatedEmailValidator;
 import br.com.mballoni.validatorboot.ValidationErrorAdvice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
+@Ignore
 public class NoSpringExampleControllerTest {
 
     private MockMvc mockMvc;

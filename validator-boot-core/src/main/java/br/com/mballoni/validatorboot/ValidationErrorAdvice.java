@@ -41,9 +41,6 @@ public class ValidationErrorAdvice extends ResponseEntityExceptionHandler {
 
         body.put("errors", errors);
 
-        log.info("Errors {}", body);
-
         return new ResponseEntity<>(body, headers, status);
-
     }
 }

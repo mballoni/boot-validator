@@ -33,8 +33,18 @@ public class BeanValidation implements Validator {
             return;
         }
         List<FieldError> errors = violations.stream()
-                .map(ErrorDataConverter::from)
+                .map(this::from)
                 .collect(toList());
         throw new ValidationException(errors);
+    }
+
+    private <T> FieldError from(ConstraintViolation<T> violation) {
+        final String code = violation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
+        final Object rejected = violation.getInvalidValue();
+        final String field = violation.getPropertyPath().toString();
+        final String message = violation.getMessage();
+        final String objectName = violation.getRootBeanClass().getSimpleName().toLowerCase();
+
+        return new FieldError(objectName, field, rejected, true, new String[]{code}, new Object[]{}, message);
     }
 }
