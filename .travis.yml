@@ -9,8 +9,6 @@ jobs:
       script: ./gradlew test
     - stage: Dependency Check
       script: ./gradlew dependencyCheckAnalyze
-    - stage: Static Analysis
-      script: ./gradlew sonarqube
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
