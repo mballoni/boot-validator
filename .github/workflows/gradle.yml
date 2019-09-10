@@ -17,4 +17,5 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_ORG:  ${{ secrets.SONAR_ORG }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew sonarqube
