@@ -19,3 +19,5 @@ jobs:
         SONAR_ORG:  ${{ secrets.SONAR_ORG }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew sonarqube
+    - name: Dependency Check
+      run: ./gradlew dependencyCheckAnalyze
