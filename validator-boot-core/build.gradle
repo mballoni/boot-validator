@@ -1,9 +1,10 @@
+import java.text.SimpleDateFormat
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    
+
     implementation 'com.fasterxml.jackson.core:jackson-annotations'
     implementation 'org.apache.commons:commons-lang3'
 
@@ -15,4 +16,17 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Build-Timestamp': new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+                'Created-By': "Gradle ${gradle.gradleVersion}",
+                'Build-Jdk': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                'Build-OS': "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
+                'build-version': version
+        )
+    }
+
 }

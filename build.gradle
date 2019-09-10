@@ -1,3 +1,10 @@
+buildscript {
+    ext {
+        def release = project.properties['releaseVersion'] ?: 'SNAPSHOT'
+        applicationVersion = '0.0.1-' + release
+    }
+}
+
 plugins {
     id 'java'
     id "io.spring.dependency-management" version "1.0.8.RELEASE" apply false
@@ -15,8 +22,8 @@ configurations {
 
 allprojects {
     group = 'br.com.mballoni'
-    version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'
+    version = "${applicationVersion}"
 }
 
 subprojects {
