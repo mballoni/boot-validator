@@ -12,14 +12,12 @@ jobs:
       with:
         java-version: 1.11
     - name: Build with Gradle
-      env:
-        VERSION: ${{./scripts/release_number.sh}}
-      run: ./gradlew build -PreleaseVersion=${VERSION}
+      run: ./gradlew build
     - name: Static Analysis
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_ORG:  ${{ secrets.SONAR_ORG }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./gradlew sonarqube -PreleaseVersion=${VERSION}
+      run: ./gradlew sonarqube
     - name: Dependency Check
       run: ./gradlew dependencyCheckAnalyze
