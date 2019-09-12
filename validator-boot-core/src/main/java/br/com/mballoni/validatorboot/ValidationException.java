@@ -1,6 +1,5 @@
 package br.com.mballoni.validatorboot;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -13,17 +12,7 @@ public class ValidationException extends RuntimeException {
     private final List<Error> errors;
 
     public ValidationException(final List<Error> fieldsErrors) {
-        this(null, null, fieldsErrors);
-    }
-
-    public ValidationException(String message, Throwable cause, final List<Error> fieldsErrors) {
-        super(message, cause);
-        this.errors = Collections.unmodifiableList(fieldsErrors);
-    }
-
-    @Override
-    public String toString() {
-        return StringUtils.join(errors, StringUtils.LF);
+        this.errors = fieldsErrors;
     }
 
     public List<Error> getErrors() {

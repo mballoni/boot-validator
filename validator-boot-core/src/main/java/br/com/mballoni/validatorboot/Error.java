@@ -1,15 +1,13 @@
 package br.com.mballoni.validatorboot;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+
+import java.io.Serializable;
 
 @Getter
-@ToString
 @AllArgsConstructor
-@EqualsAndHashCode
-public class Error {
+public class Error implements Serializable {
     private String field;
     private String code;
     private String message;
