@@ -2,7 +2,6 @@ package br.com.mballoni.validatorboot;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Collections;
@@ -11,17 +10,13 @@ import java.util.List;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid Parameters")
 public class ValidationException extends RuntimeException {
 
-    private final List<FieldError> errors;
+    private final List<Error> errors;
 
-    public ValidationException(final List<FieldError> fieldsErrors) {
+    public ValidationException(final List<Error> fieldsErrors) {
         this(null, null, fieldsErrors);
     }
 
-    public ValidationException(String message, final List<FieldError> fieldsErrors) {
-        this(message, null, fieldsErrors);
-    }
-
-    public ValidationException(String message, Throwable cause, final List<FieldError> fieldsErrors) {
+    public ValidationException(String message, Throwable cause, final List<Error> fieldsErrors) {
         super(message, cause);
         this.errors = Collections.unmodifiableList(fieldsErrors);
     }
@@ -31,7 +26,7 @@ public class ValidationException extends RuntimeException {
         return StringUtils.join(errors, StringUtils.LF);
     }
 
-    public List<FieldError> getErrors() {
-        return errors;
+    public List<Error> getErrors() {
+        return Collections.unmodifiableList(errors);
     }
 }
