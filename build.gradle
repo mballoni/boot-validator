@@ -66,6 +66,12 @@ subprojects {
             xml.enabled true
         }
     }
+
+    test {
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
 }
 
 jar.enabled = false
