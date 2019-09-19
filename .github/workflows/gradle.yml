@@ -7,17 +7,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+
     - name: Set up JDK 1.11
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
+
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build jacocoTestReport
+
+    - name: Stores Tests Report
+      uses: actions/upload-artifact@master
+      with:
+        name: test-reports
+        path: validator-boot-core/reports/jacoco/test
+
     - name: Static Analysis
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_ORG:  ${{ secrets.SONAR_ORG }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew sonarqube
+
     - name: Dependency Check
       run: ./gradlew dependencyCheckAnalyze
