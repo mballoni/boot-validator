@@ -20,7 +20,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: test-reports
-        path: validator-boot-core/reports/jacoco/test/jacocoTestReport.xml
+        path: /home/runner/work/boot-validator/validator-boot-core/reports/jacoco/test/jacocoTestReport.xml
 
     - name: Static Analysis
       env:
