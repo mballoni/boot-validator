@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,7 +26,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = ExampleController.class, includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "br.com.mballoni.*"))
+@WebMvcTest(
+        useDefaultFilters = false,
+        includeFilters = {
+                @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = RestController.class),
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = TestConfiguration.class)
+        })
 public class ExampleControllerTest {
 
     @Autowired

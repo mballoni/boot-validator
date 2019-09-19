@@ -26,6 +26,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 import static org.hamcrest.Matchers.contains;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @ImportAutoConfiguration(ValidationAutoConfiguration.class)
-@WebMvcTest(controllers = ValidationErrorAdviceTest.TestController.class)
+@WebMvcTest
 public class ValidationErrorAdviceTest {
 
 
@@ -65,6 +66,26 @@ public class ValidationErrorAdviceTest {
                 .andExpect(jsonPath("$.errors[?(@.field=='name')].message", contains("Need a name!")));
     }
 
+    @Test
+    public void intercepts_ValidationException() throws Exception {
+        TestRequest request = new TestRequest();
+        request.setName("");
+        request.setId(9L);
+
+        this.mockMvc.perform(
+                post("/testValidationException")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(request))
+        )
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.errors[?(@.field=='id')].code", contains("Min")))
+                .andExpect(jsonPath("$.errors[?(@.field=='id')].rejectedValue", contains(9)))
+                .andExpect(jsonPath("$.errors[?(@.field=='id')].message", contains("Should be at least 10")))
+                .andExpect(jsonPath("$.errors[?(@.field=='name')].code", contains("NotBlank")))
+                .andExpect(jsonPath("$.errors[?(@.field=='name')].rejectedValue", contains("")))
+                .andExpect(jsonPath("$.errors[?(@.field=='name')].message", contains("Need a name!")));
+    }
+
 
     @RestController
     public static class TestController {
@@ -73,6 +94,17 @@ public class ValidationErrorAdviceTest {
         @PostMapping(value = "/test", consumes = MediaType.APPLICATION_JSON_VALUE)
         public void create(@RequestBody @Validated TestRequest request) {
             log.info("CREATE: {}", request);
+        }
+
+        @PostMapping(value = "/testValidationException", consumes = MediaType.APPLICATION_JSON_VALUE)
+        public void get() {
+
+            List<Error> errors = List.of(
+                    new Error("id", "Min", "Should be at least 10", 9),
+                    new Error("name", "NotBlank", "Need a name!", "")
+            );
+
+            throw new ValidationException(errors);
         }
     }
 
