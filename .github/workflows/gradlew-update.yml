@@ -8,5 +8,7 @@ jobs:
     steps:
       - name: Update Gradle Wrapper
         uses: rahulsom/gradle-up@v0.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
      
