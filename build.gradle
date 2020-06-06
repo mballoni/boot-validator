@@ -32,7 +32,6 @@ subprojects {
     apply plugin: "org.sonarqube"
     apply plugin: "jacoco"
     apply plugin: "org.owasp.dependencycheck"
-    apply plugin: "maven"
     apply plugin: 'maven-publish'
 
     ext {
