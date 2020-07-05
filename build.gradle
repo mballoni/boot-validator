@@ -33,6 +33,7 @@ subprojects {
     apply plugin: "jacoco"
     apply plugin: "org.owasp.dependencycheck"
     apply plugin: 'maven-publish'
+    apply plugin: 'checkstyle'
 
     ext {
         set('springBootVersion', '2.3.0.RELEASE')
@@ -57,6 +58,7 @@ subprojects {
             property "sonar.organization", "$System.env.SONAR_ORG"
             property "sonar.host.url", "https://sonarcloud.io"
             property "sonar.login", "$System.env.SONAR_TOKEN"
+            property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml,build/reports/checkstyle/test.xml"
         }
     }
 
@@ -69,6 +71,18 @@ subprojects {
     test {
         testLogging {
             events "passed", "skipped", "failed"
+        }
+    }
+
+    checkstyle {
+        showViolations false
+        toolVersion '8.34'
+    }
+
+    tasks.withType(Checkstyle) {
+        reports {
+            xml.enabled true
+            html.enabled true
         }
     }
 }
