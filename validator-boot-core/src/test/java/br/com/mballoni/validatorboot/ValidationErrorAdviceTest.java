@@ -12,8 +12,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,9 +46,7 @@ class ValidationErrorAdviceTest {
   @Test
   @DisplayName("should translate the validation exception with the error protocol")
   void applies_validation_and_translates_default_group() throws Exception {
-    TestRequest request = new TestRequest();
-    request.setName("");
-    request.setId(9L);
+    TestRequest request = new TestRequest(9L, "");
 
     this.mockMvc
         .perform(
@@ -68,9 +66,7 @@ class ValidationErrorAdviceTest {
   @Test
   @DisplayName("should translate the validation exception irrespective on how it was thrown")
   void intercepts_ValidationException() throws Exception {
-    TestRequest request = new TestRequest();
-    request.setName("");
-    request.setId(9L);
+    TestRequest request = new TestRequest(9L, "");
 
     this.mockMvc
         .perform(
@@ -89,11 +85,11 @@ class ValidationErrorAdviceTest {
 
   @RestController
   public static class TestController {
-    private Logger log = LoggerFactory.getLogger(TestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
     @PostMapping(value = "/test", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void create(@RequestBody @Validated TestRequest request) {
-      log.info("CREATE: {}", request);
+      LOGGER.info("CREATE: {}", request);
     }
 
     @PostMapping(value = "/testValidationException", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -109,16 +105,16 @@ class ValidationErrorAdviceTest {
   }
 
   @Getter
-  @Setter
+  @AllArgsConstructor
   public static class TestRequest {
 
     @NotNull
     @Min(value = 10, message = "Should be at least 10")
     @Max(value = 20)
-    private Long id;
+    private final Long id;
 
     @NotBlank(message = "Need a name!")
-    private String name;
+    private final String name;
   }
 
   @Configuration
