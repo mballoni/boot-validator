@@ -16,22 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExampleController {
 
-    @Autowired
-    private Validator validator;
+  @Autowired private Validator validator;
 
-    @PostMapping(value = "/example", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void create(@RequestBody @Validated(CreateExample.class) ExampleRequest request) {
-        log.info("CREATE: {}", request);
-    }
+  @PostMapping(value = "/example", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public void create(@RequestBody @Validated(CreateExample.class) ExampleRequest request) {
+    log.info("CREATE: {}", request);
+  }
 
-    @PutMapping(value = "/example", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody @Validated(UpdateExample.class) ExampleRequest request) {
-        log.info("UPDATE: {}", request);
-    }
+  @PutMapping(value = "/example", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public void update(@RequestBody @Validated(UpdateExample.class) ExampleRequest request) {
+    log.info("UPDATE: {}", request);
+  }
 
-    @PostMapping(value = "/exampleBeanValidation", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createBean(@RequestBody ExampleRequest request) {
-        validator.validate(request, CreateExample.class);
-        log.info("CREATE: {}", request);
-    }
+  @PostMapping(value = "/exampleBeanValidation", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public void createBean(@RequestBody ExampleRequest request) {
+    validator.validate(request, CreateExample.class);
+    log.info("CREATE: {}", request);
+  }
 }

@@ -6,5 +6,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ImportAutoConfiguration(ValidationAutoConfiguration.class)
-public class TestConfiguration {
-}
+public class TestConfiguration {}
