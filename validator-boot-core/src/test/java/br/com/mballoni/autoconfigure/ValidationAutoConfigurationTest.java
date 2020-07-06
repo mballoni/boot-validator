@@ -6,7 +6,8 @@ import br.com.mballoni.validatorboot.BeanValidation;
 import br.com.mballoni.validatorboot.ValidationErrorAdvice;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,8 @@ public class ValidationAutoConfigurationTest {
           .withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class));
 
   @Test
-  public void setup_DEFAULT_beans() {
+  @DisplayName("When setting up without customizations should setup the default beans")
+  public void setupDefaultBeans() {
     contextRunner
         .withUserConfiguration(DefaultConfiguration.class)
         .run(

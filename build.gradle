@@ -72,6 +72,7 @@ subprojects {
         testLogging {
             events "passed", "skipped", "failed"
         }
+        useJUnitPlatform()
     }
 
     checkstyle {

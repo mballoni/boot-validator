@@ -14,8 +14,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @ImportAutoConfiguration(ValidationAutoConfiguration.class)
 @WebMvcTest
@@ -43,6 +44,7 @@ public class ValidationErrorAdviceTest {
   @Autowired private ObjectMapper objectMapper;
 
   @Test
+  @DisplayName("should translate the validation exception with the error protocol")
   public void applies_validation_and_translates_default_group() throws Exception {
     TestRequest request = new TestRequest();
     request.setName("");
@@ -64,6 +66,7 @@ public class ValidationErrorAdviceTest {
   }
 
   @Test
+  @DisplayName("should translate the validation exception irrespective on how it was thrown")
   public void intercepts_ValidationException() throws Exception {
     TestRequest request = new TestRequest();
     request.setName("");
