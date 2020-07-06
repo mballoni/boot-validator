@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ActiveProfiles("test")
 @ImportAutoConfiguration(ValidationAutoConfiguration.class)
 @WebMvcTest
-public class ValidationErrorAdviceTest {
+class ValidationErrorAdviceTest {
 
   @Autowired private MockMvc mockMvc;
 
@@ -45,7 +45,7 @@ public class ValidationErrorAdviceTest {
 
   @Test
   @DisplayName("should translate the validation exception with the error protocol")
-  public void applies_validation_and_translates_default_group() throws Exception {
+  void applies_validation_and_translates_default_group() throws Exception {
     TestRequest request = new TestRequest();
     request.setName("");
     request.setId(9L);
@@ -67,7 +67,7 @@ public class ValidationErrorAdviceTest {
 
   @Test
   @DisplayName("should translate the validation exception irrespective on how it was thrown")
-  public void intercepts_ValidationException() throws Exception {
+  void intercepts_ValidationException() throws Exception {
     TestRequest request = new TestRequest();
     request.setName("");
     request.setId(9L);

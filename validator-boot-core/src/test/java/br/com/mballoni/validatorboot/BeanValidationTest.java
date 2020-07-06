@@ -11,19 +11,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class BeanValidationTest {
+class BeanValidationTest {
 
   private BeanValidation sut;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     sut = new BeanValidation(validator);
   }
 
   @Test
   @DisplayName("when not specifying group should be applied to default")
-  public void appliesValidationToDefaultGroup() {
+  void appliesValidationToDefaultGroup() {
     Subject emptySubject = new Subject();
 
     ValidationException thrown =
@@ -36,7 +36,7 @@ public class BeanValidationTest {
 
   @Test
   @DisplayName("should apply validation to specified group")
-  public void appliesValidationToSpecifiedGroup() {
+  void appliesValidationToSpecifiedGroup() {
     Subject emptySubject = new Subject();
 
     ValidationException thrown =

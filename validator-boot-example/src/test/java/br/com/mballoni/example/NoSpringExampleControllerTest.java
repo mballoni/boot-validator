@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @Disabled
 @ExtendWith(MockitoExtension.class)
-public class NoSpringExampleControllerTest {
+class NoSpringExampleControllerTest {
 
   private MockMvc mockMvc;
 
@@ -39,7 +39,7 @@ public class NoSpringExampleControllerTest {
   @InjectMocks private NoDuplicatedEmailValidator noDuplicatedEmailValidator;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     objectMapper = new ObjectMapper();
     objectMapper.findAndRegisterModules();
 
@@ -51,7 +51,7 @@ public class NoSpringExampleControllerTest {
 
   @Test
   @DisplayName("should apply basic validation")
-  public void validate_basic_input_data() throws Exception {
+  void validate_basic_input_data() throws Exception {
     ExampleRequest request = new ExampleRequest();
     request.setEmail("me@abacate.com");
     request.setName("");

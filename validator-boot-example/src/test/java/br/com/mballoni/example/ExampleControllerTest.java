@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
       @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = RestController.class),
       @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = TestConfiguration.class)
     })
-public class ExampleControllerTest {
+class ExampleControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
@@ -42,7 +42,7 @@ public class ExampleControllerTest {
 
   @Test
   @DisplayName("should apply basic validation")
-  public void validate_basic_input_data() throws Exception {
+  void validate_basic_input_data() throws Exception {
     ExampleRequest request = new ExampleRequest();
     request.setEmail("me@abacate.com");
     request.setName("");

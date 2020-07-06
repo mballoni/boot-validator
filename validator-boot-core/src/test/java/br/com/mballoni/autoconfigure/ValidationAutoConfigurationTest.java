@@ -21,7 +21,7 @@ public class ValidationAutoConfigurationTest {
 
   @Test
   @DisplayName("When setting up without customizations should setup the default beans")
-  public void setupDefaultBeans() {
+  void setupDefaultBeans() {
     contextRunner
         .withUserConfiguration(DefaultConfiguration.class)
         .run(
