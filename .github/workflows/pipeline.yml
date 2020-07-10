@@ -34,6 +34,11 @@ jobs:
         name: example-check-style-reports
         path: ${{ github.workspace }}/validator-boot-example/build/reports/checkstyle/
 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: test-existing-artifact
+        path: ${{ github.workspace }}/validator-boot-example/lombok.config
+
     - name: Static Analysis
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
