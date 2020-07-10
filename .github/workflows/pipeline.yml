@@ -27,12 +27,12 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: core-check-style-reports
-        path: validator-boot-core/reports/checkstyle/*.html
+        path: validator-boot-core/reports/checkstyle/
 
     - uses: actions/upload-artifact@v2
       with:
         name: example-check-style-reports
-        path: validator-boot-example/reports/checkstyle/*.html
+        path: validator-boot-example/reports/checkstyle/
 
     - name: Static Analysis
       env:
