@@ -89,3 +89,23 @@ subprojects {
 }
 
 jar.enabled = false
+
+tasks.register("configureLinuxIdea")
+        {
+            println "Configuring Linux Idea"
+            outputs.upToDateWhen { false }
+
+            def home = System.properties['user.home']
+
+            file("${home}/.config/JetBrains/").eachDir() { dir ->
+                copy {
+                    from '.intellij/checkstyle/styles'
+                    into "${home}/.config/JetBrains/${dir.name}/codestyles"
+                }
+            }
+
+            copy {
+                from '.intellij/checkstyle/settings'
+                into ".idea/codeStyles"
+            }
+        }
