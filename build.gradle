@@ -98,14 +98,14 @@ tasks.register("configureLinuxIdea")
             def home = System.properties['user.home']
 
             file("${home}/.config/JetBrains/").eachDir() { dir ->
-                copy {
-                    from '.intellij/checkstyle/styles'
-                    into "${home}/.config/JetBrains/${dir.name}/codestyles"
-                }
+                def target = new File("${home}/.config/JetBrains/${dir.name}/codestyles/intellij-java-google-style.xml")
+
+                new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
+                        .withInputStream { i -> target.withOutputStream { it << i } }
             }
 
             copy {
-                from '.intellij/checkstyle/settings'
+                from '.intellij/checkstyle'
                 into ".idea/codeStyles"
             }
         }
