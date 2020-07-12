@@ -26,13 +26,10 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: core-check-style-reports
-        path: ${{ github.workspace }}/validator-boot-example/build/reports/checkstyle/
-
-    - uses: actions/upload-artifact@v2
-      with:
-        name: example-check-style-reports
-        path: ${{ github.workspace }}/validator-boot-example/build/reports/checkstyle/
+        name: check-style-reports
+        path: |
+          ${{ github.workspace }}/validator-boot-example/build/reports/checkstyle/
+          ${{ github.workspace }}/validator-boot-example/build/reports/checkstyle/
 
     - name: Static Analysis
       env:
@@ -40,6 +37,3 @@ jobs:
         SONAR_ORG:  ${{ secrets.SONAR_ORG }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew sonarqube
-
-#     - name: Dependency Check
-#       run: ./gradlew dependencyCheckAnalyze
