@@ -44,12 +44,6 @@ subprojects {
         mavenLocal()
     }
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR8"
-        }
-    }
-
     dependencies {
         compileOnly 'org.projectlombok:lombok'
         testCompileOnly 'org.projectlombok:lombok'
