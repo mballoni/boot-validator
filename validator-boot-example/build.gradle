@@ -12,21 +12,10 @@ dependencies {
     implementation group: 'com.h2database', name: 'h2'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-
     implementation project(':validator-boot-core')
     implementation 'javax.validation:validation-api'
 
-    compileOnly 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-
     testImplementation group: 'org.hamcrest', name: 'hamcrest-core'
-
 }
 
 jar.enabled = false
