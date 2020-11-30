@@ -98,12 +98,16 @@ tasks.register("configureLinuxIdea")
             outputs.upToDateWhen { false }
 
             def home = System.properties['user.home']
+            try {
 
-            file("${home}/.config/JetBrains/").eachDir() { dir ->
-                def target = new File("${home}/.config/JetBrains/${dir.name}/codestyles/intellij-java-google-style.xml")
+                file("${home}/.config/JetBrains/").eachDir() { dir ->
+                    def target = new File("${home}/.config/JetBrains/${dir.name}/codestyles/intellij-java-google-style.xml")
 
-                new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
-                        .withInputStream { i -> target.withOutputStream { it << i } }
+                    new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
+                            .withInputStream { i -> target.withOutputStream { it << i } }
+                }
+            } catch (Exception e) {
+                println e;
             }
 
             copy {
