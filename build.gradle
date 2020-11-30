@@ -92,22 +92,28 @@ subprojects {
 
 jar.enabled = false
 
-tasks.register("configureLinuxIdea")
+tasks.register("configureIdea")
         {
-            println "Configuring Linux Idea"
+            println "Configuring Idea"
             outputs.upToDateWhen { false }
 
             def home = System.properties['user.home']
-            try {
+            ["${home}/.config/JetBrains/", "${home}/Library/Application Support/JetBrains"].each { potentialDir ->
 
-                file("${home}/.config/JetBrains/").eachDir() { dir ->
-                    def target = new File("${home}/.config/JetBrains/${dir.name}/codestyles/intellij-java-google-style.xml")
+                try {
+                    file(potentialDir).eachDir() { dir ->
+                        try {
+                            def target = new File("${potentialDir}/${dir.name}/codestyles/intellij-java-google-style.xml")
 
-                    new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
-                            .withInputStream { i -> target.withOutputStream { it << i } }
+                            new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
+                                        .withInputStream { i -> target.withOutputStream { it << i } }
+                        } catch (Exception e) {
+                            println e;
+                        }
+                    }
+                } catch (Exception e) {
+                    println e;
                 }
-            } catch (Exception e) {
-                println e;
             }
 
             copy {
