@@ -100,20 +100,16 @@ tasks.register("configureIdea")
             def home = System.properties['user.home']
             ["${home}/.config/JetBrains/", "${home}/Library/Application Support/JetBrains"].each { potentialDir ->
 
-                try {
-                    file(potentialDir).eachDir() { dir ->
-                        try {
-                            def target = new File("${potentialDir}/${dir.name}/codestyles/intellij-java-google-style.xml")
+                def installDir = file(potentialDir)
 
+                if (installDir.exists())
+                    installDir.eachDir() { dir ->
+                        if (file("${potentialDir}/${dir.name}/codestyles").exists()) {
+                            def target = new File("${potentialDir}/${dir.name}/codestyles/intellij-java-google-style.xml")
                             new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
-                                        .withInputStream { i -> target.withOutputStream { it << i } }
-                        } catch (Exception e) {
-                            println e;
+                                    .withInputStream { i -> target.withOutputStream { it << i } }
                         }
                     }
-                } catch (Exception e) {
-                    println e;
-                }
             }
 
             copy {
