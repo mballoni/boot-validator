@@ -98,22 +98,25 @@ tasks.register("configureIdea")
             outputs.upToDateWhen { false }
 
             def home = System.properties['user.home']
-            ["${home}/.config/JetBrains/", "${home}/Library/Application Support/JetBrains"].each { potentialDir ->
 
-                def installDir = file(potentialDir)
-
-                if (installDir.exists())
-                    installDir.eachDir() { dir ->
-                        if (file("${potentialDir}/${dir.name}/codestyles").exists()) {
-                            def target = new File("${potentialDir}/${dir.name}/codestyles/intellij-java-google-style.xml")
-                            new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
-                                    .withInputStream { i -> target.withOutputStream { it << i } }
-                        }
-                    }
-            }
+            [file("${home}/.config/JetBrains/"), file("${home}/Library/Application Support/JetBrains")]
+                    .findAll { it.exists() }
+                    .collect { it.listFiles() }
+                    .flatten()
+                    .findAll { it.toString().toLowerCase().contains("intellij") }
+                    .each { intelliJHome -> copyJavaStyle intelliJHome }
 
             copy {
                 from '.intellij/checkstyle'
                 into ".idea/codeStyles"
             }
         }
+
+private void copyJavaStyle(intelliJHome) {
+    if (new File(intelliJHome, "codestyles").exists()) {
+        def target = new File(intelliJHome, "codestyles/intellij-java-google-style.xml")
+
+        new URL('https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml')
+                .withInputStream { input -> target.withOutputStream { output -> output << input } }
+    }
+}
